@@ -17,7 +17,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="font-display">
+      <body className="font-display" suppressHydrationWarning={true}>
         <Layout>
           <Navbar />
           <PageButton />
