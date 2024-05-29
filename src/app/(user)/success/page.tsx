@@ -7,11 +7,12 @@ import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 
 const SucessPage = ({ searchParams }: any) => {
+  console.log(searchParams);
   const dispatch = useDispatch();
 
   useEffect(() => {
     !searchParams?.session_id ? redirect("/") : dispatch(resetCart());
-  }, []);
+  }, [searchParams, dispatch]);
   return (
     <Container className="flex items-center justify-center py-20">
       <div className="min-h-[400px] flex flex-col items-center justify-center gap-y-5">
