@@ -11,7 +11,6 @@ import toast, { Toaster } from "react-hot-toast";
 const PageButton = () => {
   const { productData } = useSelector((state: StateProps) => state.orebi);
   const { data: session } = useSession();
-  console.log(session);
 
   return (
     <div className="fixed top-60 right-2 z-20 flex flex-col gap-2">

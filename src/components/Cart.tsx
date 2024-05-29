@@ -44,14 +44,17 @@ const Cart = () => {
     if (session?.user) {
       console.log("product data", productData);
       const stripe = await stripePromise;
-      const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/checkout`, {
-        method: "POST",
-        headers: { "Content-Type": "appication/json" },
-        body: JSON.stringify({
-          items: productData,
-          email: session?.user?.email,
-        }),
-      });
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_WEBAPP_BASE_URL}/api/checkout`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "appication/json" },
+          body: JSON.stringify({
+            items: productData,
+            email: session?.user?.email,
+          }),
+        }
+      );
       const data = await response.json();
       if (response.ok) {
         stripe?.redirectToCheckout({ sessionId: data.id });
