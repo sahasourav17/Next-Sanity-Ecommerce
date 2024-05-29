@@ -8,11 +8,17 @@ import { HiMenuAlt2 } from "react-icons/hi";
 import { useState } from "react";
 import { usePathname } from "next/navigation";
 import { signOut, useSession } from "next-auth/react";
+import { MdClose } from "react-icons/md";
 
 const Navbar = () => {
   const pathname = usePathname();
   const [searchQuery, setSearchQuery] = useState("");
   const { data: session } = useSession();
+  const [isSideNavOpen, setIsSideNavOpen] = useState(false);
+
+  const toggleSideNav = () => {
+    setIsSideNavOpen(!isSideNavOpen);
+  };
 
   const navBarList = [
     {
@@ -80,8 +86,56 @@ const Navbar = () => {
             </button>
           )}
         </div>
-        <HiMenuAlt2 className="inline-flex md:hidden cursor-pointer w-8 h-6" />
+        <HiMenuAlt2
+          onClick={toggleSideNav}
+          className="inline-flex md:hidden cursor-pointer w-8 h-6"
+        />
+        {/* <div
+          onClick={toggleSideNav}
+          className="inline-flex md:hidden cursor-pointer w-8 h-6"
+        >
+          {isSideNavOpen ? (
+            <MdClose className="w-8 h-6" />
+          ) : (
+            <HiMenuAlt2 className="w-8 h-6" />
+          )}
+        </div> */}
       </nav>
+      <div
+        className={`fixed top-0 right-0 h-full bg-white shadow-lg transform transition-transform duration-300 ease-in-out ${
+          isSideNavOpen ? "translate-x-0" : "translate-x-full"
+        } w-64 z-50`}
+      >
+        <div className="flex flex-col items-center pt-20 relative">
+          <MdClose
+            onClick={toggleSideNav}
+            className="absolute top-8 right-4 w-8 h-6 cursor-pointer text-gray-600"
+          />
+          {navBarList.map((item) => (
+            <Link
+              href={item?.link}
+              key={item?.link}
+              className={`w-full py-4 text-center text-gray-600 hover:text-gray-950 ${
+                pathname === item?.link && "text-gray-950 font-medium"
+              }`}
+              onClick={toggleSideNav}
+            >
+              {item?.title}
+            </Link>
+          ))}
+          {session?.user && (
+            <button
+              onClick={() => {
+                signOut();
+                setIsSideNavOpen(false);
+              }}
+              className="w-full py-4 text-center text-gray-500 hover:text-red-600"
+            >
+              Logout
+            </button>
+          )}
+        </div>
+      </div>
     </div>
   );
 };
