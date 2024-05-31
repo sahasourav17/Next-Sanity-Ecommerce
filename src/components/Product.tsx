@@ -19,7 +19,7 @@ const Product = ({ product, bg }: Props) => {
   const dispatch = useDispatch();
   return (
     <div className="w-full relative group border-[1px] border-black hover:shadow-lg duration-200 shadow-gray-500 rounded-md overflow-hidden group">
-      <div className="w-full h-80 flex items-center justify-center bg-white overflow-hidden">
+      <div className="w-full h-70 flex items-center justify-center bg-white overflow-hidden">
         <div className={`relative ${bg}`}>
           <Link href={`/product/${product?.slug?.current}`}>
             <Image
@@ -56,7 +56,7 @@ const Product = ({ product, bg }: Props) => {
             </Link>
           </div>
           {product?.isnew && (
-            <div className="absolute top-2 right-2 z-50">
+            <div className="absolute top-2 right-2 z-30">
               <p className="bg-primeColor px-4 py-1 text-white flex justify-center items-center text-sm font-semibold hover:bg-black duration-300 cursor-pointer rounded-md">
                 New
               </p>
